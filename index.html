@@ -1,61 +1,89 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Kadek Dylan | Portofolio Web Developer Profesional</title>
+    
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-    <style>
-        /* Smooth Custom Floating Animations */
-        @keyframes float-slow {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-12px) scale(1.02); }
-        }
-        @keyframes float-delayed {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(10px) scale(0.98); }
-        }
-        .animate-float-1 { animation: float-slow 6s ease-in-out infinite; }
-        .animate-float-2 { animation: float-delayed 5s ease-in-out infinite; }
-        .animate-float-3 { animation: float-slow 7s ease-in-out infinite 1s; }
 
-        /* Background Pattern Tipis (Grid & Dots) */
+    <style>
+        /* KUNCI UTAMA: Mencegah scroll horizontal di seluruh aplikasi */
+        html, body {
+            overflow-x: hidden;
+            width: 100vw;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Smooth Custom Floating Animations */
+        @keyframes float-slow { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        .animate-float-1 { animation: float-slow 6s ease-in-out infinite; }
+
+        /* Background Pattern */
         .bg-grid-pattern {
             background-size: 40px 40px;
             background-image: 
                 linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
         }
-        .bg-dots-pattern {
-            background-size: 24px 24px;
-            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-        }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-200 font-sans overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-200 bg-grid-pattern">
 
-    <nav class="fixed top-0 w-full bg-slate-950/70 backdrop-blur-md z-50 border-b border-slate-900/80">
+<body class="bg-slate-950 text-slate-200 font-sans bg-grid-pattern">
+
+    <nav class="fixed top-0 left-0 w-full z-50 bg-slate-950/70 backdrop-blur-md border-b border-slate-900/80">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="index.html" class="text-xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">
                 Dylan<span class="text-cyan-400">.</span>
             </a>
+
             <div class="hidden md:flex space-x-8 text-sm font-medium">
                 <a href="index.html" class="text-cyan-400 border-b-2 border-cyan-400 pb-1">Home</a>
-                <a href="about.html" class="text-slate-400 hover:text-slate-100 transition-colors duration-200">About</a>
-                <a href="service.html" class="text-slate-400 hover:text-slate-100 transition-colors duration-200">Services</a>
-                <a href="gallery.html" class="text-slate-400 hover:text-slate-100 transition-colors duration-200">Projects</a>
-                <a href="testimoni.html" class="text-slate-400 hover:text-slate-100 transition-colors duration-200">Testimonials</a>
-                <a href="contact.html" class="text-slate-400 hover:text-slate-100 transition-colors duration-200">Contact</a>
+                <a href="about.html" class="text-slate-400 hover:text-slate-100 transition-colors">About</a>
+                <a href="service.html" class="text-slate-400 hover:text-slate-100 transition-colors">Services</a>
+                <a href="gallery.html" class="text-slate-400 hover:text-slate-100 transition-colors">Projects</a>
+                <a href="testimoni.html" class="text-slate-400 hover:text-slate-100 transition-colors">Testimonials</a>
+                <a href="contact.html" class="text-slate-400 hover:text-slate-100 transition-colors">Contact</a>
             </div>
-            <div class="md:hidden text-slate-400 hover:text-slate-100 cursor-pointer">
-                <i class="fa-solid fa-bars text-lg"></i>
-            </div>
+
+            <button id="mobile-btn" class="md:hidden text-slate-400 hover:text-slate-100 text-lg p-2 focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden absolute left-0 top-full w-full bg-slate-950/95 border-b border-slate-900 px-6 py-6 flex flex-col space-y-4 text-sm font-medium shadow-2xl">
+            <a href="index.html" class="text-cyan-400">Home</a>
+            <a href="about.html" class="text-slate-400">About</a>
+            <a href="service.html" class="text-slate-400">Services</a>
+            <a href="gallery.html" class="text-slate-400">Projects</a>
+            <a href="testimoni.html" class="text-slate-400">Testimonials</a>
+            <a href="contact.html" class="text-slate-400">Contact</a>
         </div>
     </nav>
+
+    <script>
+        const btn = document.getElementById('mobile-btn');
+        const menu = document.getElementById('mobile-menu');
+        
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menu.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!menu.contains(e.target) && !btn.contains(e.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+    </script>
 
     <section class="min-h-screen flex items-center justify-center pt-28 pb-16 relative overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-slate-950">
         <div class="max-w-6xl mx-auto px-6 w-full grid md:grid-cols-12 gap-12 items-center relative z-10">

@@ -8,39 +8,76 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Background Pattern & FX */
+        /* Kunci utama agar layar tidak bergeser */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
         .bg-grid-pattern {
             background-size: 40px 40px;
             background-image: 
                 linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
         }
-        .bg-dots-pattern {
-            background-size: 24px 24px;
-            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-        }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-200 font-sans overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-200 bg-grid-pattern">
+<body class="bg-slate-950 text-slate-200 font-sans selection:bg-cyan-500/30 selection:text-cyan-200 bg-grid-pattern">
 
-    <nav class="fixed top-0 w-full bg-slate-950/70 backdrop-blur-md z-50 border-b border-slate-900/80">
+    <nav class="fixed top-0 left-0 w-full z-50 bg-slate-950/70 backdrop-blur-md border-b border-slate-900/80">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="index.html" class="text-xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">
                 Dylan<span class="text-cyan-400">.</span>
             </a>
+
             <div class="hidden md:flex space-x-8 text-sm font-medium">
-                <a href="index.html" class="text-slate-400 hover:text-slate-100 transition-colors duration-200">Home</a>
-                <a href="about.html" class="text-slate-400 hover:text-slate-100 transition-colors duration-200">About</a>
+                <a href="index.html" class="text-slate-400 hover:text-slate-100 transition-colors">Home</a>
+                <a href="about.html" class="text-slate-400 hover:text-slate-100 transition-colors">About</a>
                 <a href="service.html" class="text-cyan-400 border-b-2 border-cyan-400 pb-1">Services</a>
-                <a href="gallery.html" class="text-slate-400 hover:text-slate-100 transition-colors duration-200">Projects</a>
-                <a href="testimoni.html" class="text-slate-400 hover:text-slate-100 transition-colors duration-200">Testimonials</a>
-                <a href="contact.html" class="text-slate-400 hover:text-slate-100 transition-colors duration-200">Contact</a>
+                <a href="gallery.html" class="text-slate-400 hover:text-slate-100 transition-colors">Projects</a>
+                <a href="testimoni.html" class="text-slate-400 hover:text-slate-100 transition-colors">Testimonials</a>
+                <a href="contact.html" class="text-slate-400 hover:text-slate-100 transition-colors">Contact</a>
             </div>
-            <div class="md:hidden text-slate-400 hover:text-slate-100 cursor-pointer">
+
+            <button id="mobile-btn" class="md:hidden text-slate-400 hover:text-slate-100 cursor-pointer p-2 focus:outline-none">
                 <i class="fa-solid fa-bars text-lg"></i>
-            </div>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden absolute left-0 top-full w-full bg-slate-950/95 border-b border-slate-900 px-6 py-6 flex flex-col space-y-4 text-sm font-medium text-slate-400 shadow-2xl box-border">
+            <a href="index.html" class="hover:text-cyan-400">Home</a>
+            <a href="about.html" class="hover:text-cyan-400">About</a>
+            <a href="service.html" class="text-cyan-400">Services</a>
+            <a href="gallery.html" class="hover:text-cyan-400">Projects</a>
+            <a href="testimoni.html" class="hover:text-cyan-400">Testimonials</a>
+            <a href="contact.html" class="hover:text-cyan-400">Contact</a>
         </div>
     </nav>
+
+    <script>
+        const mobileBtn = document.getElementById('mobile-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Toggle menu
+        mobileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Tutup jika klik di luar
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !mobileBtn.contains(e.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+
+        // Tutup jika link diklik
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+    </script>
+</body>
 
     <section class="pt-36 pb-24 max-w-6xl mx-auto px-6 relative">
         <div class="absolute w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl top-10 -right-20 pointer-events-none"></div>
